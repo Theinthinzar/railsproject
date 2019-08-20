@@ -16,7 +16,7 @@
              <date style="font-size:18px; padding-left:20px;color:gray;"> <%=  l chmsg.created_at, format: :euro  %><br></date>
             </div>
             <div class="col-md-12 message" style="font-size:16px"> 
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <%= chmsg.chmessage %>
               <%= link_to "",chmessagedelete_path(messagedelete:chmsg.chmsg_id),:method => :delete , class: "fa fa-trash", style: "color:pink"%>
               <% if @charray.include?(chmsg.chmsg_id)%>
