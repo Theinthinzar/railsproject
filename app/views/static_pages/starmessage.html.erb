@@ -1,0 +1,55 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+  <div class="header">
+    <div class="col-md-5 col-md-offset-5" style="font-size:30px;color:pink;padding-top:20px">
+      Star
+    </div>
+    <div class="col-md-2", style="float:right;padding-top:25px;font-size:25px;">
+        <%= link_to "",home_path,class: "fa fa-times-circle", style:"color:pink" %>
+    </div>
+</div>
+  <div>
+    <% @dstar.each do |dstar| %>
+      <div class="user">
+          &nbsp; <i class="fa fa-fw fa-picture-o"></i>
+          &nbsp;<%= dstar.user_name%>&nbsp;&nbsp;
+          <date style="font-size:18px; padding-left:20px;color:gray;">
+            <%= l dstar.created_at, format: :euro  %>
+          </date>
+      </div>
+      <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= dstar.dir_message %></div>       
+    <%end%>
+  </div>
+  <div>
+      <% @chstar.each do |chstar| %>
+        &nbsp; <div class="fa fa-users"><%= chstar.channel_name%></div>
+        <div class="user">
+        &nbsp; <i class="fa fa-fw fa-picture-o"></i>
+          &nbsp;<%= chstar.user_name%>&nbsp;&nbsp;
+          <date style="font-size:18px; padding-left:20px;color:gray;">
+            <%=  l chstar.created_at, format: :euro  %>
+          </date>
+        </div>
+        <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= chstar.chmessage %></div>      
+      <%end%>
+  </div>
+   &nbsp;<%= will_paginate @chstar, :page_links => false%>
+  <script>
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+  var dropdown = document.getElementsByClassName("dropdown-btn");
+  var i;  
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+    } else {
+    dropdownContent.style.display = "block";
+    }
+    });
+  }
+  </script>
+</div>
+
+<script language="javascript" type="text/javascript">setTimeout("location.reload();",20000);</script>

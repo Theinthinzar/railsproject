@@ -1,0 +1,84 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+<div class="header">
+    <div class="col-md-10" style="font-size:20px;color:pink;padding-top:20px">
+      <div class="fa fa-users"> <%= session[:clickchannel_name]%></div><br>
+      <%= link_to "Member List",memberedit_path, style:"color:#59b300" %>
+    </div>
+    <div class="col-md-2", style="float:right;padding-top:30px">
+        <%= link_to "",home_path, class:"fa fa-times-circle", style:"color:pink"%>
+    </div>
+  </div>
+  <div class="content">
+    <% @chmesg.each do |chmsg|%>
+          <div class="dropdown-container2">
+            <div class="user"><i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= chmsg.user_name %>
+             <date style="font-size:18px; padding-left:20px;color:gray;"> <%=  l chmsg.created_at, format: :euro  %><br></date>
+            </div>
+            <div class="col-md-12 message" style="font-size:16px"> 
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <%= chmsg.chmessage %>
+              <%= link_to "",chmessagedelete_path(messagedelete:chmsg.chmsg_id),:method => :delete , class: "fa fa-trash", style: "color:pink"%>
+              <% if @charray.include?(chmsg.chmsg_id)%>
+                <%= link_to"",chmsgunstar_path(:clickchid => session[:clickchannel_id],:unchstarid => chmsg.chmsg_id),:method => :delete,class:"fa fa-star",style:"color:pink"%>
+              <%else%>
+               <%= link_to "",chmsgstar_path(:clickchstarid => chmsg.chmsg_id),class:"fa fa-star-o",style:"color:pink"%>
+              <%end%>
+              <%if chmsg.count != 0 %>
+                <%=chmsg.count%><%= link_to "replies",chreplymsg_path(chclickid:chmsg.chmsg_id),class:"",style:"color:pink"%>
+              <%end%>
+              <%= link_to "",chmsgthread_path(chthread_id:chmsg.chmsg_id) , class: "fa fa-comment-o", style: "color:pink"%>
+              <br>
+            </div>
+          </div>
+    <%end%> 
+  </div>
+   <div class="footer">
+    <div class="col-md-8 col-md-offset-2", style="margin-top:20px">
+    <%= form_for(:channel, url:chmessage_path) do |f| %>
+      <div class="col-md-10">
+      <%= f.text_field :chmessage, class: 'form-control',data: { autocomplete_source: @muser.order(:user_name).map { |t| 
+      { :label => '@' + t.user_name} } }, id: 'autocomplete-4' %>
+      </div>
+      <div class="col-md-2">
+      <%= f.submit "Send", class: "btn btn-primary" %>
+      <%= f.hidden_field :memtion_name, class: 'memtion_name' %>
+      </div>
+      <% end %>
+      </div>
+  </div>
+  <script>
+    $( "#autocomplete-4" ).autocomplete({
+      source: $('#autocomplete-4').data('autocomplete-source'),
+      position: {
+        my: "left bottom",
+        at: "left top",
+      },
+    select: function(event, ui) {
+      event.preventDefault();
+      this.value = ui.item.label
+      $('.memtion_name').val(ui.item.value)
+    }
+    });
+ </script>
+  <script>
+    $('.content').scrollTop($('.content')[0].scrollHeight);
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+  
+    for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+    } else {
+    dropdownContent.style.display = "block";
+    }
+    });
+   }
+  </script>
+</div>
+
+ <script language="javascript" type="text/javascript">setTimeout("location.reload();",20000);</script>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reply_user_id: 1
+  dirmsg_id: 1
+  dirthread_msg: MyString
+  is_read: false
+
+two:
+  reply_user_id: 1
+  dirmsg_id: 1
+  dirthread_msg: MyString
+  is_read: false

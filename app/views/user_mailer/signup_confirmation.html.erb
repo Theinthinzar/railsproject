@@ -1,0 +1,7 @@
+<h1>Invitation Members</h1>
+
+<p>
+  <%= @greeting %>, Welcome to my slack application 
+
+<%= link_to "Join", invite_url(user_email:@user.user_email,workspaceid:@workspace,workspacename:@workspace_name)%>
+</p>

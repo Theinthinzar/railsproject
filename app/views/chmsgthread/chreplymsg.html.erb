@@ -1,0 +1,41 @@
+<%= render 'pannel/nav' %>
+<div class="main">  
+  <div class="header" style="padding-top:25px">
+    <div class="col-md-10 fa fa-users" style="font-size:20px;color:pink;">
+     <%= session[:clickchannel_name]  %><br>
+    </div>  
+    <div class="col-md-2", style="float:right">
+        <%= link_to "",channelchat_path(:clickchannelid=>session[:clickchannel_id]), class:"fa fa-times-circle", style:"color:pink"%>
+    </div>
+</div>
+    <div>
+      <% @chreplymsg.each do |chmsg| %>
+        <div class="user">
+          <i class="fa fa-fw fa-picture-o"></i>
+          &nbsp;<%= chmsg.user_name%>&nbsp;&nbsp;
+          <date style="font-size:18px; padding-left:20px;color:gray;">
+            <%=  l chmsg.created_at, format: :euro  %>
+          </date>
+        </div>
+        <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= chmsg.chthreadmsg %></div>
+      <%end%>
+    </div>
+  </div>
+  <script>
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+  var dropdown = document.getElementsByClassName("dropdown-btn");
+  var i;
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+    } else {
+    dropdownContent.style.display = "block";
+    }
+    });
+  }
+  </script>
+</div>
+<script language="javascript" type="text/javascript">setTimeout("location.reload();",20000);</script>

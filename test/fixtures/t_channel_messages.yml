@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  chsender_id: 1
+  channel_id: 1
+  chmessage: MyString
+
+two:
+  chsender_id: 1
+  channel_id: 1
+  chmessage: MyString

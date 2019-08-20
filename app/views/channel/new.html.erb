@@ -1,0 +1,26 @@
+<h1>New Channel</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:session, url:channel_path) do |f| %>
+      <%= f.label :Channelname %><br>
+      <%= f.text_field :channelname,class:'form-control'%>
+      <br>
+      <div class="align">
+        <div class="col-md-1">
+        <%= radio_button_tag 'channeltype', 'private',:checked => true %> 
+        </div>
+        <div class="col-md-2">
+        <%= f.label :Private %>&nbsp
+        </div>
+        <div class="col-md-1">
+        <%= radio_button_tag 'channeltype', 'public'%>
+        </div>
+        <div class="col-md-1">
+        <%= f.label :Public %>
+        </div>      
+      </div>
+        <br><br><br>
+      <%= f.submit "Create", class: "btn btn-primary", style:"width:100%" %>
+    <% end %>
+  </div>
+</div>

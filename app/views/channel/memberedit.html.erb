@@ -1,0 +1,62 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+  <div class="header">
+    <div class="col-md-10" style="font-size:20px;color:pink;padding-top:20px">
+      <div class="fa fa-users"> <%= @clickchannel.channel_name %></div><br>
+      <%= link_to "Member List", memberedit_path,style:"color:#59b300" %>
+    </div>
+    <div class="col-md-2", style="float:right;padding-top:30px">      
+        <%= link_to "",channelchat_path(:clickchannelid=>session[:clickchannel_id]), class:"fa fa-times-circle", style:"color:pink"%>      
+    </div>
+  </div>
+  <div class="member_edit">
+    <div class="user_remove">    
+      <div class="col-md-2"><i class="fa fa-fw fa-users"></i><%=@chmembercount%><%="member"%>
+      </div>
+      <div class="col-md-2" style="color:black">
+        <%= link_to "",chmemberinvite_path,class:"fa fa-plus-circle"%>
+      </div>
+    </div>
+    <br>
+    <div class="user_remove"> 
+     <div class="col-md-2">
+          <% @chadmin.each do |click|%>
+           <% if (click.user_id== session[:user_id]) && (click.chadmin == true) %>
+             <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
+             <%=click.user_name%>
+             <%= link_to "",channelremove_path(removeuser:click.user_id),:method => :delete,class:"fa fa-minus-circle" %>
+           <%else%>
+            <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
+            <%=click.user_name%>
+            <br>
+           <%end%>
+         <%end%> 
+         <% @chnotadmin.each do |mclick|%>
+             <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
+             <%= mclick.user_name%>
+             <%= link_to "",channelremove_path(removeuser:mclick.user_id),:method => :delete,class:"fa fa-minus-circle" %>
+            <br>
+         <%end%>
+        <%= will_paginate @chnotadmin, :page_links => false%>
+      </div>     
+    </div>
+  </div>
+  <script>
+   /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+   var dropdown = document.getElementsByClassName("dropdown-btn");
+   var i;
+   for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+    } else {
+    dropdownContent.style.display = "block";
+    }
+    });
+   }
+  </script>
+</div>
+
+

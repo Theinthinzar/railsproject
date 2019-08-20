@@ -1,0 +1,61 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+  <div class="header">
+    <div class="col-md-10" style="font-size:30px;color:pink;">
+        All Unread<br>
+        <p style="font-size:15px;color:white"><%=@totalcount%>messages<p>
+    </div>
+    <div class="col-md-2", style="float:right;font-size:25px;padding-top:25px">      
+        <%= link_to "",home_path,class: "fa fa-times-circle", style:"color:pink" %>      
+    </div>      
+  </div>   
+  <div class="content" style="width:100%">   
+  <div>    
+    <% @dirmsg.each do |dirmsg| %>     
+     <div class="user"><i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= dirmsg.user_name%>
+     </div>
+      <div class="message" style="font-size:16px">
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= dirmsg.dir_message %>
+         <%=  l dirmsg.created_at, format: :euro  %>
+      </div>
+    <%end%>
+   </div>
+   <br>  
+    <div>
+     <% @chmesg.each do |chmsg| %>
+       <div class="message"><i class="fa fa-users">
+         </i>&nbsp;<%= chmsg.channel_name%>
+       </div>
+       <div class="user"><i class="fa fa-fw fa-picture-o">
+         </i>&nbsp;<%= chmsg.user_name%>
+         <date style="font-size:18px; padding-left:20px;color:gray;">
+              <%=  l chmsg.created_at, format: :euro  %>
+         </date>
+       </div>
+       <div class="message" style="font-size:16px"> 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= chmsg.chmessage %>
+       </div>
+     <%end%>
+    </div>
+  <div class="col-md-5 col-md-offset-3", style="padding-top:20px;">    
+    <%= link_to "Mark all messages read",update_path,class: "btn btn-lg btn-primary", style:"background-color:#59b300;color:white" %> 
+   </div>
+<script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+}
+</script>
+
+

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  chmsgid: 1
+  chreplyer_id: 1
+  chthreadmsg: MyString
+
+two:
+  chmsgid: 1
+  chreplyer_id: 1
+  chthreadmsg: MyString

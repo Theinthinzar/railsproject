@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  rpuser_id: 1
+  dirmsg_id: 1
+  dirrpmsg: MyString
+  is_read: false
+
+two:
+  rpuser_id: 1
+  dirmsg_id: 1
+  dirrpmsg: MyString
+  is_read: false

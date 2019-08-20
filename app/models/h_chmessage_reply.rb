@@ -1,0 +1,2 @@
+class HChmessageReply < ApplicationRecord
+end

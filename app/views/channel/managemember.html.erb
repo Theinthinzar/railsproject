@@ -1,0 +1,39 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+  <div class="header" style="padding-top:20px">
+    <div class="col-md-4 col-md-offset-4" style="font-size:28px;color:pink;">
+       Member Management
+    </div>
+    <div class="col-md-2", style="float:right">
+        <%= link_to "",home_path, class:"fa fa-times-circle", style:"color:pink"%>      
+    </div>
+ </div>    
+    <br>
+    <div class="col-md-4 col-md-offset-4" ><% @curchuser.each do|user|%>
+       <% if user.admin != 1 %>
+         <i class="fa fa-user"></i><%=user.user_name%> &nbsp;
+         <%= link_to "Remove",userremove_path(userremove:user.user_id),:method => :delete, class:"", style:"color:red" %>
+       <%end%>
+        <br>
+       <%end%>
+      <%= will_paginate @curchuser, :page_links => false%>     
+    </div>
+</div>
+  <script>
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+}
+</script>
+

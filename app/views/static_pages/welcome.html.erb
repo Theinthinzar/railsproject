@@ -1,0 +1,19 @@
+<header>
+<nav class="navbar navbar-light bg-red">
+ <a class="navbar-brand col-md-10" href="/" style="font-size:30px;">Slack App</a>
+ <ul class="nav navbar-nav navbar-right col-md-2">
+         <div style="padding-top:30px;padding-left:100px;">
+            <button class="btn btn-outline-success" type="button"><%= link_to "Log in", login_path %> 
+            </button>
+         </div>
+  </ul>
+</nav>
+</header> 
+<div class="center jumbotron">
+  <h1>Welcome to Slack_App</h1>
+  <br><br><br><br><br>
+  <div class="col-md-5 col-md-offset-5">  
+  <%= link_to "Sign Up",signup_path, class: "btn btn-lg btn-primary" %>  
+  </div>
+  <br><br>
+</div>

@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h2>Search Your WorkSpace</h2><br>
+        <%= form_for(:session, url: search_path) do |f| %>
+            <%= f.label :name, "WorkSpace Name:" %>
+            <%= f.text_field :name, class: 'form-control' %>  
+        <%= f.submit "Search", class: "btn btn-primary form-control" %>
+        <% end %>
+    </div>
+</div>
+

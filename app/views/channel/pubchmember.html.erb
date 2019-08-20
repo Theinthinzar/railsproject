@@ -1,0 +1,48 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+  <div class="header">
+    <div class="col-md-10" style="font-size:20px;color:pink;padding-top:20px">
+      <div class="fa fa-firefox"> <%= @clickchannel.channel_name %></div><br>
+      <%= link_to "Member List", "#",style:"color:#59b300" %>
+    </div>  
+    <div class="col-md-2", style="float:right;padding-top:30px">      
+        <%= link_to "@","#",class: "", style:"color:pink" %>
+        <%= link_to "","#",class: "fa fa-star-o" , style:"color:pink" %>
+        <%= link_to "","#", class:"fa fa-times-circle", style:"color:pink"%>
+     </div>
+</div>
+  <div class="member_edit">
+    <div class="user_remove">    
+      <div class="col-md-2"><i class="fa fa-fw fa-users"></i><%=@currentcount%><%="member"%></div>
+    </div>
+    <br>
+    <div class="user_remove"> 
+     <div class="col-md-2">
+        <% @m_clickuser.each do |click| %>
+          <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
+          <%= click.user_name %>
+          <br>
+        <%end%>
+      </div>
+    </div>
+  </div>
+  <script>
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+  var dropdown = document.getElementsByClassName("dropdown-btn");
+  var i;  
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+    } else {
+    dropdownContent.style.display = "block";
+    }
+    });
+  }
+  </script>
+</div>
+
+
+<script language="javascript" type="text/javascript">setTimeout("location.reload();",20000);</script>

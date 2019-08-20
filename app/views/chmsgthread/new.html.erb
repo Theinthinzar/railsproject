@@ -1,0 +1,69 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+  <div class="header">
+    <div class="col-md-10" style="font-size:20px;color:pink;padding-top:20px;">
+      <%= session[:clickchannel_name]  %><br>
+      <%= link_to "Member List",memberedit_path , style:"color:#59b300;"%>
+    </div>
+    <div class="col-md-2", style="float:right;padding-top:30px;">
+        <%= link_to "@",mention_path,class: "", style:"color:pink" %>
+        <%= link_to "",starmessage_path,class: "fa fa-star-o" , style:"color:pink" %>
+        <%= link_to "",channelchat_path(:clickchannelid=>session[:clickchannel_id]), class:"fa fa-times-circle", style:"color:pink"%>
+    </div>
+  </div>
+    <div>
+      <% @chmsg_original.each do |chmsg| %>
+        <div class="user">
+          <i class="fa fa-fw fa-picture-o"></i>
+          &nbsp;<%= chmsg.user_name%>&nbsp;&nbsp;
+          <date style="font-size:18px; padding-left:20px;color:gray;">
+            <%=  l chmsg.created_at, format: :euro  %>
+          </date>
+        </div>
+        <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= chmsg.chmessage %>
+        </div>
+     <%end%>
+    </div>
+    <div>
+      <% @chthread_msg.each do |chmsg| %>
+        <div class="user">
+          <i class="fa fa-fw fa-picture-o"></i>
+          &nbsp;<%= chmsg.user_name%>&nbsp;&nbsp;
+          <date style="font-size:18px; padding-left:20px;color:gray;">
+            <%=  l chmsg.created_at, format: :euro  %>
+          </date>
+        </div>
+        <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= chmsg.chthreadmsg %></div>       
+      <%end%>
+    </div>
+</div>
+<div class="footer">
+     <div class="col-md-8 col-md-offset-2", style="margin-top:20px">       
+         <%= form_for(:chmsgthread, url:chthreadinsert_path) do |f| %>  
+          <div class ="col-md-10">      
+           <%= f.text_field :chmessage, class: 'form-control' %> 
+          </div>    
+          <div class="col-md-2">
+           <%= f.submit "Send", class: "btn btn-primary" %>  
+          </div>         
+         <% end %>
+      </div>
+    </div>
+  <script>
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+  var dropdown = document.getElementsByClassName("dropdown-btn");
+  var i;  
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+    } else {
+    dropdownContent.style.display = "block";
+    }
+    });
+  }
+  </script>
+</div>
+

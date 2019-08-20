@@ -1,0 +1,14 @@
+
+<h1>Create Workspace</h1>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@m_workspace, url:wscreate_path) do |f| %>
+      <%= render 'wshared/error_messages' %>
+
+      <%= f.label :workspace_name %>
+      <%= f.text_field :workspace_name,class: 'form-control' %>
+       
+      <%= f.submit "Create", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+class HMessageReply < ApplicationRecord
+end

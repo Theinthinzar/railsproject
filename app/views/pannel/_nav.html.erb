@@ -1,0 +1,74 @@
+<div class="sidenav">
+  <button class="dropdown-btn">
+    <div style="color:pink;font-size:25px">
+      <%= session[:workspace_name] %><i class="fa fa-caret-down"></i>
+    </div>
+    <div>
+     <%= session[:user_name]%>
+    </div>
+   </button>
+  <div class="dropdown-container">    
+     <% if session[:workspace_admin] == true %>
+      <%= link_to "Manage member" , managemember_path %>
+     <%end%>     
+     <%= link_to "Manage channel" , managechannel_path %>    
+     <%= link_to "Sign in other WorkSpace", search_path %>
+     <%= link_to "Sign out", logout_path, :method => :delete %>
+  </div>
+  <br>
+   <div class="col-md-12">
+    <i class="fa fa-commenting-o" style="float:left;color:white;margin-top:5px;font-size:17px"></i> 
+    <%= link_to "Threads", thread_path %>
+   </div>
+   <div class="col-md-10" ><i class="fa fa-envelope-o" style="float:left;color:white;margin-top:5px;font-size:17px"></i> <%= link_to "Unread",unread_path %></div>
+     <%if @totalcount != 0%>
+       <div class="col-md-2" style="color:white"><%=@totalcount%> </div> 
+     <%end%>
+   <div class="text">
+     <div class="col-md-10">Channels</div>
+     <div class="col-md-2"><%= link_to "",channel_path, class:"fa fa-plus", style:"color:pink" %></a></div>
+   </div>   
+   <div class="chan1" style="padding-left:0px">
+      <div class=""> 
+         <% @m_channel.each do |channel| %>
+            <div class="col-md-10">
+                  <i class="fa fa-users" style="float:left;margin-top:5px;color:white;font-size:13px"></i><%= link_to channel.channel_name,channelchat_path(:clickchannelid => channel.channel_id) , style:"font-size:15px;" %>
+            </div>               
+            <%if channel.workspace_id != 0%>                  
+                  <div class="col-md-2" style="color:white" ><%=channel.workspace_id%></div>
+            <%end %>           
+         <%end%>            
+         <%  @public_channel_list.each do |pubchannel| %>
+            <% if !@pubarray.include?(pubchannel.channel_name)%>
+              <div class="col-md-12"><i class="fa fa-firefox" style="float:left;margin-top:5px;color:white;font-size:13px" ></i><%= link_to pubchannel.channel_name ,pubchannelshow_path(:clickchannelid => pubchannel.channel_id), style:"font-size:15px;" %></div>
+            <%end%>
+         <%end%>      
+      </div>
+   </div>
+    &nbsp;
+   <div class="col-md-10 text" style="padding-left:10px">MemberList</div>
+   <div class="mess">
+   <% @curworkuser.each do|user|%>
+      <% if user.user_name == session[:user_name] %>
+         <div class="col-md-12">
+            <i class="fa fa-user" style="float:left;color:white;margin-top:5px;font-size:13px"></i> 
+            <%= link_to user.user_name, home_path, style:"font-size:15px;"%>
+         </div>
+      <%else%>
+      <div class="col-md-10" style="color:white">
+            <i class="fa fa-user" style="float:left;margin-top:5px;font-size:13px;"></i>
+            <%= link_to user.user_name, dirmsg_path(clickuser_id:user.user_id), style:"font-size:15px;"%>
+         </div>
+       <% if user.user_email != "0"%>
+         <div class="col-md-2" style="color:white" ><%=user.user_email%></div>
+        <%end%>
+       <%end%>
+     <%end%>
+    </div>
+  <br>
+  <div class="text">
+    <div class="col-md-10">Member_Invite</div>
+    <div class="col-md-2"><%= link_to "",invitations_path, class:"fa fa-plus", style:"color:pink" %></div>
+  </div>
+</div>
+

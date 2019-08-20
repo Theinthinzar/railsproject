@@ -1,0 +1,2 @@
+class HDirmessageReply < ApplicationRecord
+end

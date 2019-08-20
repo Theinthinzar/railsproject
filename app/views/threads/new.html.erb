@@ -1,0 +1,83 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+  <div class="header">
+    <div class="col-md-4 col-md-offset-4" style="font-size:30px;color:pink;padding-top:23px">
+        Thread Messages<br>
+    </div>
+    <div class="col-md-2", style="float:right;padding-top:35px;font-size:25px;padding-top:25px">
+        <%= link_to "",home_path,class: "fa fa-times-circle", style:"color:pink" %>
+    </div> 
+  </div>
+  <div class="content" style="width:100%">
+    <div class="direct">  
+      <h3 style="color:pink">Direct Threads</h3>
+      <% @dirmsg.each do |dirmsg| %>
+        <div class="user">
+          <i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= dirmsg.user_name%>
+          <date style="font-size:18px; padding-left:20px;color:gray;">
+            <%=  l dirmsg.created_at, format: :euro  %>
+          </date>
+        </div>
+        <div class="message" style="font-size:16px">
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= dirmsg.dir_message %>
+        </div>       
+        <% @dirmsgthrd.each do |dirmsgthrd| %>
+          <% if dirmsgthrd.dirmsg_id==dirmsg.dirmsg_id%>
+            <div class="user">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= dirmsgthrd.user_name%>
+              <date style="font-size:18px; padding-left:20px;color:gray;">
+                <%=  l dirmsgthrd.created_at, format: :euro  %>
+              </date>
+            </div>
+            <div class="message" style="font-size:16px">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= dirmsgthrd.dirthread_msg %>
+            </div>
+          <%end%>
+        <%end%><br>
+      <%end%>      
+    </div>
+    <div class="group">
+        <h3 style="color:pink">Group Threads</h3>
+        <% @chmsg.each do |chmsg| %>
+          <i class="fa fa-users"></i>&nbsp;<%= chmsg.channel_name%>&nbsp;&nbsp;
+          <div class="user">
+            <i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= chmsg.user_name%>
+            <date style="font-size:18px; padding-left:20px;color:gray;">
+              <%=  l chmsg.created_at, format: :euro  %>
+            </date>
+          </div>
+          <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= chmsg.chmessage%> 
+          </div>
+          <% @chmsgthrd.each do |chmsgthrd| %>
+            <% if chmsgthrd.chmsgid==chmsg.chmsg_id%>
+              <div class="user">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= chmsgthrd.user_name%>
+                <date style="font-size:18px; padding-left:20px;color:gray;"> 
+                  <%=  l chmsgthrd.created_at, format: :euro  %><br>
+                </date>
+              </div>
+              <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= chmsgthrd.chthreadmsg %>
+              </div>              
+            <%end%>
+          <%end%><br>
+        <%end%>
+    </div>      
+  </div>
+</div>
+<script>
+ /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+ var dropdown = document.getElementsByClassName("dropdown-btn");
+ var i;
+ for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+  this.classList.toggle("active");
+  var dropdownContent = this.nextElementSibling;
+  if (dropdownContent.style.display === "block") {
+  dropdownContent.style.display = "none";
+  } else {
+  dropdownContent.style.display = "block";
+  }
+  });
+ }
+ </script>
+

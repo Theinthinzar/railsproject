@@ -1,0 +1,30 @@
+<%= render 'pannel/nav' %>
+<div class="main">
+  <div class="header",style="margin-top:0px">
+    <div class="col-md-4 col-md-offset-4" style="font-size:30px;color:pink;padding-top:23px">
+      Home Page
+     <%= session[:wrokspace_name] %>
+    </div>
+    <div class="col-md-2", style="float:right;padding-top:25px">
+        <%= link_to "@",mention_path,class: "", style:"color:pink" %>
+        <%= link_to "",starmessage_path,class: "fa fa-star-o" , style:"color:pink" %>      
+    </div>    
+  </div> 
+  <script>
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+  var dropdown = document.getElementsByClassName("dropdown-btn");
+  var i;  
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+    } else {
+    dropdownContent.style.display = "block";
+    }
+    });
+  }
+  </script>
+</div>
+<script language="javascript" type="text/javascript">setTimeout("location.reload();",20000);</script>
