@@ -1,7 +1,7 @@
 class CreateMWorkspaces < ActiveRecord::Migration[5.2]
   def change
     create_table :m_workspaces, id: false do |t|
-      t.integer :workspace_id
+      t.integer :workspace_id, null: false
       t.integer :user_id
       t.string :workspace_name
       t.boolean :admin
