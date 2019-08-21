@@ -44,7 +44,7 @@ class ChannelController < ApplicationController
   #To remove the users that exist in current channel
   def channelremove
     MChannel.find_by("user_id=? and channel_id=?", params[:removeuser], session[:clickchannel_id]).delete
-    redirect_to memberedit_path
+    redirect_to home_path
   end
 
   #To delete users that exist in current workspace
@@ -56,7 +56,7 @@ class ChannelController < ApplicationController
   #To delete channel from m_channels table
   def channeldelete
     MChannel.find_by("channel_id=? ", params[:channelremove]).delete
-    redirect_to home_path
+    redirect_to managechannel_path
   end
 
   #To show current channel messages
