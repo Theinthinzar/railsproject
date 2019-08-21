@@ -24,7 +24,7 @@
            <% if (click.user_id == session[:user_id]) && (click.chadmin == true) %>
              <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
              <%=click.user_name%>
-             <%= link_to "",channelremove_path(removeuser:click.user_id),:method => :delete,class:"fa fa-minus-circle" %>
+             <%= link_to "",channelallremove_path(removechannel:click.channel_id),:method => :delete,class:"fa fa-minus-circle" %>
              <%else%>
             <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
             <%=click.user_name%>

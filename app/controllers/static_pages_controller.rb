@@ -37,7 +37,6 @@ class StaticPagesController < ApplicationController
     @dstar = TDirmessage.select("m_users.user_name,t_dirmessages.dir_message,t_dirmessages.created_at")
                         .joins("join m_users on m_users.user_id=t_dirmessages.sender_user_id join t_directstars on t_directstars.stardimsg_id=t_dirmessages.dirmsg_id")
                         .where("dirworkspace_id=? and t_directstars.star_userid=?", session[:workspace_id], session[:user_id]).order("t_dirmessages.created_at ASC")
-    @dstar = @dstar.paginate(page: params[:page], per_page: 3)
 
     #@dirmesg = TDirmessage.select("m_users.user_name,t_dirmessages.dir_message,t_dirmessages.created_at")
     #.joins("join m_users on m_users.user_id=t_dirmessages.sender_user_id")
@@ -49,7 +48,6 @@ class StaticPagesController < ApplicationController
     @chstar = TChannelMessage.select("m_channels.channel_name ,m_users.user_name ,t_channel_messages.chmessage,t_channel_messages.created_at")
                              .joins("join m_users on t_channel_messages.chsender_id=m_users.user_id join t_chmsgstars on t_chmsgstars.chmsgstarid=t_channel_messages.chmsg_id join m_channels on m_channels.channel_id=t_channel_messages.channel_id")
                              .where(" t_chmsgstars.chstar_userid=? and m_channels.user_id = ? and m_channels.workspace_id=? ", session[:user_id], session[:user_id], session[:workspace_id])
-    @chstar = @chstar.paginate(page: params[:page], per_page: 3)
   end
 
   #for showing unread messages, when click unread button

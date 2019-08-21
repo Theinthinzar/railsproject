@@ -47,6 +47,10 @@ class ChannelController < ApplicationController
     redirect_to home_path
   end
 
+  def channelallremove
+    MChannel.find_by("channel_id=?", params[:removechannel])
+  end
+
   #To delete users that exist in current workspace
   def userremove
     MWorkspace.find_by("user_id=? and workspace_id=?", params[:userremove], session[:workspace_id]).delete
@@ -55,9 +59,7 @@ class ChannelController < ApplicationController
 
   #To delete channel from m_channels table
   def channeldelete
-    #MChannel.find_by("channel_id=? ", params[:channelremove]).delete
-    #redirect_to managechannel_path
-    MChannel.delete_all
+    MChannel.find_by("channel_id=? ", params[:channelremove]).delete
     redirect_to managechannel_path
   end
 
