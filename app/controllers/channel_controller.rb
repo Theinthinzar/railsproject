@@ -56,7 +56,7 @@ class ChannelController < ApplicationController
   #To delete channel from m_channels table
   def channeldelete
     MChannel.find_by("channel_id=? ", params[:channelremove]).delete
-    redirect_to managechannel_path
+    redirect_to home_path
   end
 
   #To show current channel messages
