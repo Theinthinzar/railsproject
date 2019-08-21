@@ -9,7 +9,7 @@ class ChannelController < ApplicationController
     main
     @curchuser = MUser.select("*")
       .joins("join m_workspaces on m_workspaces.user_id = m_users.user_id")
-      .where("m_workspaces.workspace_id= ?", session[:workspace_id]).paginate(page: params[:page], per_page: 3)
+      .where("m_workspaces.workspace_id= ?", session[:workspace_id])
   end
 
   #click add button for insert users into m_channels table
@@ -104,8 +104,6 @@ class ChannelController < ApplicationController
     @chnotadmin = MChannel.select("*")
                           .joins("join m_users on m_channels.user_id=m_users.user_id")
                           .where("m_channels.channel_name=? and m_channels.workspace_id=? and m_channels.chadmin != true", session[:clickchannel_name], session[:workspace_id])
-
-    @chnotadmin = @chnotadmin.paginate(page: params[:page], per_page: 10)
   end
 
   #for messages send button
@@ -168,7 +166,6 @@ class ChannelController < ApplicationController
     #@chmesg=TChannelMessage.select("*").joins("join m_users on m_users.user_id=t_channel_messages.chsender_id").where("channel_id=?",session[:clickchannel_id]).order("t_channel_messages.created_at ASC")
     @curworchannel = MChannel.joins("join m_workspaces on m_workspaces.workspace_id = m_channels.workspace_id and m_channels.user_id = m_workspaces.user_id ")
       .where("m_workspaces.workspace_id=? and m_channels.user_id=? and m_channels.chadmin= true", session[:workspace_id], session[:user_id])
-    @curworchannel = @curworchannel.paginate(page: params[:page], per_page: 13)
   end
 
   #To create new channel
