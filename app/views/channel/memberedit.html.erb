@@ -11,29 +11,36 @@
   </div>
   <div class="member_edit">
     <div class="user_remove">    
-      <div class="col-md-2"><i class="fa fa-fw fa-users"></i><%=@chmembercount%><%="member"%>
+      <div class="col-md-3"><i class="fa fa-fw fa-users"></i><%=@chmembercount%><%="member"%>
       </div>
-      <div class="col-md-2" style="color:black">
+      <div class="col-md-1" style="color:black">
         <%= link_to "",chmemberinvite_path,class:"fa fa-plus-circle"%>
       </div>
     </div>
     <br>
     <div class="user_remove"> 
-     <div class="col-md-2">
           <% @chadmin.each do |click|%>
            <% if (click.user_id == session[:user_id]) && (click.chadmin == true) %>
-             <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
-             <%=click.user_name%>
-             <%= link_to "",channelallremove_path(removechannel:click.channel_id),:method => :delete,class:"fa fa-minus-circle" %>
+           <div class="col-md-3"> 
+           <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
+             <%=click.user_name%> 
+             </div>
+              <div class="col-md-1">
+             <%= link_to "",channelallremove_path(removechannel:click.channel_id),:method => :delete,class:"fa fa-minus-circle" %></div>
+             <br>
              <%else%>
-            <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
-            <%=click.user_name%>
+            <div class="col-md-3"> 
+            <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i> 
+            <%=click.user_name%></div> 
            <%end%>
          <%end%> 
          <% @chnotadmin.each do |mclick|%>
-             <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
-             <%= mclick.user_name%>
-             <%= link_to "",channelremove_path(removeuser:mclick.user_id),:method => :delete,class:"fa fa-minus-circle" %>
+             <div class="col-md-3">
+              <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
+             <%= mclick.user_name%></div>
+              <div class="col-md-1">
+             <%= link_to "",channelremove_path(removeuser:mclick.user_id),:method => :delete,class:"fa fa-minus-circle" %></div> 
+             <br>
           <%end%>
           
       
