@@ -43,12 +43,14 @@ class ChannelController < ApplicationController
 
   #To remove the users that exist in current channel
   def channelremove
-    MChannel.find_by("user_id=? and channel_id=?", params[:removeuser], session[:clickchannel_id]).delete
+    #MChannel.find_by("user_id=? and channel_id=?", params[:removeuser], session[:clickchannel_id]).delete
+    #redirect_to home_path
+    MChannel.delete_all
     redirect_to home_path
   end
 
   def channelallremove
-    MChannel.find_by("channel_id=?", params[:removechannel]).delete
+    MChannel.where("channel_id=?", params[:removechannel]).delete_all
     redirect_to home_path
   end
 
