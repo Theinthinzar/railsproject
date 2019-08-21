@@ -149,6 +149,7 @@ class ChannelController < ApplicationController
   #To delete channel messages
   def chmessagedelete
     TChannelMessage.where("chmsg_id=?", params[:messagedelete]).delete_all
+    TMention.where("mention_message=?", params[:mentionmsg]).delete_all
     redirect_back(fallback_location: chmessage_path)
   end
 
