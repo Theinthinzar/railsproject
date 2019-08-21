@@ -17,27 +17,27 @@ class ChmsgthreadController < ApplicationController
     @chmsg_original = TChannelMessage.select("m_users.user_name,t_channel_messages.chmsg_id,t_channel_messages.count,t_channel_messages.chmessage,t_channel_messages.created_at,t_channel_messages.updated_at")
                                      .joins("join m_users on m_users.user_id=t_channel_messages.chsender_id")
                                      .where("t_channel_messages.chmsg_id=?", session[:chthread_id]).order("t_channel_messages.created_at ASC")
-    @chthread_msg = HChmessageReply.select("m_users.user_name,h_chmessage_replies.chmsgid,h_chmessage_replies.chthreadmsg,h_chmessage_replies.created_at")
+    @chthread_msg = HChmessageReply.select("m_users.user_name,h_chmessage_replies.chmsg_id,h_chmessage_replies.chthreadmsg,h_chmessage_replies.created_at")
                                    .joins("join m_users on m_users.user_id=h_chmessage_replies.chreplyer_id")
-                                   .where("h_chmessage_replies.chmsgid=? and h_chmessage_replies.chreplyer_id=?", session[:chthread_id], session[:user_id]).order("h_chmessage_replies.created_at ASC")
+                                   .where("h_chmessage_replies.chmsg_id=? and h_chmessage_replies.chreplyer_id=?", session[:chthread_id], session[:user_id]).order("h_chmessage_replies.created_at ASC")
     @chmsg_original.each { |thread|
       @thredcount = HChmessageReply.select("*")
-                                   .joins("join t_channel_messages on t_channel_messages.chmsg_id=h_chmessage_replies.chmsgid")
-                                   .where("h_chmessage_replies.chmsgid=?", thread.chmsg_id)
+                                   .joins("join t_channel_messages on t_channel_messages.chmsg_id=h_chmessage_replies.chmsg_id")
+                                   .where("h_chmessage_replies.chmsg_id=?", thread.chmsg_id)
       thread.count = (@thredcount.size).to_s
     }
     #TChunreadMessage.joins("join t_channel_messages on t_channel_messages.chmsg_id=t_chunread_messages.chmsg_id")
-                    #.where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], session[:clickchannel_id]).update_all(is_read: 0)
+    #.where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], session[:clickchannel_id]).update_all(is_read: 0)
     main
   end
 
   #To review the reply messages
   def chreplymsg
-    @chreplymsg = HChmessageReply.select("m_users.user_name,h_chmessage_replies.chmsgid,h_chmessage_replies.chthreadmsg,h_chmessage_replies.created_at")
+    @chreplymsg = HChmessageReply.select("m_users.user_name,h_chmessage_replies.chmsg_id,h_chmessage_replies.chthreadmsg,h_chmessage_replies.created_at")
                                  .joins("join m_users on m_users.user_id=h_chmessage_replies.chreplyer_id")
-                                 .where("h_chmessage_replies.chmsgid=?", params[:chclickid]).order("h_chmessage_replies.created_at ASC")
+                                 .where("h_chmessage_replies.chmsg_id=?", params[:chclickid]).order("h_chmessage_replies.created_at ASC")
     #TChunreadMessage.joins("join t_channel_messages on t_channel_messages.chmsg_id=t_chunread_messages.chmsg_id")
-                    #.where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], session[:clickchannel_id]).update_all(is_read: 0)
+    #.where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], session[:clickchannel_id]).update_all(is_read: 0)
     main
   end
 end

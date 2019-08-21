@@ -72,8 +72,8 @@ class ChannelController < ApplicationController
                              .where("channel_id=?", session[:clickchannel_id]).order("t_channel_messages.created_at ASC")
     @chmesg.each { |thread|
       @thredcount = HChmessageReply.select("*")
-                                   .joins("join t_channel_messages on t_channel_messages.chmsg_id=h_chmessage_replies.chmsgid")
-                                   .where("h_chmessage_replies.chmsgid=?", thread.chmsg_id)
+                                   .joins("join t_channel_messages on t_channel_messages.chmsg_id=h_chmessage_replies.chmsg_id")
+                                   .where("h_chmessage_replies.chmsg_id=?", thread.chmsg_id)
       thread.count = (@thredcount.size).to_s
     }
     @chstar = TChmsgstar.select("t_chmsgstars.chmsgstarid")
