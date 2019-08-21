@@ -20,7 +20,7 @@ class DirectmessageController < ApplicationController
     main
     @message = TDirmessage.select("m_users.user_id,m_users.user_name,t_dirmessages.dir_message,t_dirmessages.dirmsg_id,t_dirmessages.created_at,t_dirmessages.dirmsg_id,t_dirmessages.count")
                           .joins("join m_users on t_dirmessages.sender_user_id = m_users.user_id")
-                          .where("((receiver_user_id=? and sender_user_id=?) || (receiver_user_id=? and sender_user_id=?))", session[:user_id], params[:clickuser_id], params[:clickuser_id], session[:user_id]).order("created_at ASC")
+                          .where("((receiver_user_id=? and sender_user_id=?) or (receiver_user_id=? and sender_user_id=?))", session[:user_id], params[:clickuser_id], params[:clickuser_id], session[:user_id]).order("created_at ASC")
     @dstar = TDirmessage.select("t_directstars.stardimsg_id")
                         .joins("join t_directstars on t_directstars.stardimsg_id=t_dirmessages.dirmsg_id")
                         .where("dirworkspace_id=? and t_directstars.star_userid=?", session[:workspace_id], session[:user_id])
