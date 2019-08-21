@@ -30,14 +30,13 @@
             <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
             <%=click.user_name%>
            <%end%>
-           <br>
          <%end%> 
          <% @chnotadmin.each do |mclick|%>
              <i class="fa fa-fw fa-circle" style="color:green;font-size:18px;"></i>
              <%= mclick.user_name%>
              <%= link_to "",channelremove_path(removeuser:mclick.user_id),:method => :delete,class:"fa fa-minus-circle" %>
           <%end%>
-          <br>
+          
         <%= will_paginate @chnotadmin, :page_links => false%>
       </div>     
     </div>
