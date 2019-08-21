@@ -60,9 +60,7 @@ class ChannelController < ApplicationController
 
   #To delete channel from m_channels table
   def channeldelete
-    #MChannel.find_by("channel_id=? ", params[:channelremove]).delete
-    #redirect_to managechannel_path
-    MChannel.delete_all
+    MChannel.find_by("channel_id=? ", params[:channelremove]).delete
     redirect_to managechannel_path
   end
 
