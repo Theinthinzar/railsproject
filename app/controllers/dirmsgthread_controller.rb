@@ -6,7 +6,7 @@ class DirmsgthreadController < ApplicationController
     @dirthread.reply_user_id = session[:user_id]
     @dirthread.dirmsg_id = session[:dirthread_id]
     @dirthread.dirthread_msg = params[:dirmsgthread][:dirmessage]
-    @dirthread.is_read = 0
+    @dirthread.is_read = false
     @dirthread.save
     redirect_back(fallback_location: dirthreadinsert_path)
   end
@@ -28,15 +28,15 @@ class DirmsgthreadController < ApplicationController
       thread.count = (@thredcount.size).to_s
     }
     #TChunreadMessage.joins("join t_channel_messages on t_channel_messages.chmsg_id=t_chunread_messages.chmsg_id")
-                    #.where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], session[:clickchannel_id]).update_all(is_read: 0)
+    #.where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], session[:clickchannel_id]).update_all(is_read: 0)
     main
     #@pubarray = Array.new
     #@m_channel.each { |r|
-      #@pubarray.push(r.user_id)
+    #@pubarray.push(r.user_id)
     #}
     #@public_channel_list = MChannel.select("distinct m_channels.channel_name,m_channels.channel_id")
-                                   #.joins("join m_workspaces on m_workspaces.workspace_id = m_channels.workspace_id  ")
-                                   #.where(" m_channels.status=1 and m_workspaces.workspace_id=? ", session[:workspace_id])
+    #.joins("join m_workspaces on m_workspaces.workspace_id = m_channels.workspace_id  ")
+    #.where(" m_channels.status=1 and m_workspaces.workspace_id=? ", session[:workspace_id])
   end
 
   #To review the reply messages
@@ -45,7 +45,7 @@ class DirmsgthreadController < ApplicationController
                                     .joins("join m_users on m_users.user_id=h_dirmessage_replies.reply_user_id")
                                     .where("h_dirmessage_replies.dirmsg_id=?", params[:clickid]).order("h_dirmessage_replies.created_at ASC")
     #TChunreadMessage.joins("join t_channel_messages on t_channel_messages.chmsg_id=t_chunread_messages.chmsg_id")
-                    #.where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], session[:clickchannel_id]).update_all(is_read: 0)
+    #.where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], session[:clickchannel_id]).update_all(is_read: 0)
     main
   end
 end

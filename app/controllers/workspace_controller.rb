@@ -7,12 +7,12 @@ class WorkspaceController < ApplicationController
 
   #for creating new workspace,when click create button
   def create
-     @m_workspace = MWorkspace.new(workspace_params)
-     if @m_workspace.workspace_name.blank?
+    @m_workspace = MWorkspace.new(workspace_params)
+    if @m_workspace.workspace_name.blank?
       flash[:danger] = "Write your workspace name!"
       redirect_to wscreate_path
     else
-      @m_workspace.admin = 1
+      @m_workspace.admin = true
       @m_workspace.user_id = session[:user_id]
       @w = MWorkspace.select("*").where("workspace_name=?", @m_workspace.workspace_name)
       @ary = Array.new

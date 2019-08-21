@@ -20,7 +20,7 @@ class ChannelController < ApplicationController
     @channel.user_id = params[:linkuser]
     @channel.workspace_id = session[:workspace_id]
     @channel.status = session[:clickchannel_status]
-    @channel.chadmin = 0
+    @channel.chadmin = false
     @channel.save
     redirect_to memberedit_path
   end
@@ -65,7 +65,7 @@ class ChannelController < ApplicationController
     clickchannel @clickchannel
     TChunreadMessage.joins("join t_channel_messages on t_channel_messages.chmsg_id=t_chunread_messages.chmsg_id")
                     .where("chuser_id=?  and t_channel_messages.channel_id =? ", session[:user_id], @clickchannel.channel_id)
-                    .update_all(is_read: 0)
+                    .update_all(is_read: false)
     main
     @chmesg = TChannelMessage.select("m_users.user_name,t_channel_messages.chmsg_id,t_channel_messages.count,t_channel_messages.chmessage,t_channel_messages.created_at,t_channel_messages.updated_at")
                              .joins("join m_users on m_users.user_id=t_channel_messages.chsender_id")
@@ -100,10 +100,10 @@ class ChannelController < ApplicationController
     @chmembercount = (@count.size).to_s
     @chadmin = MChannel.select("*")
                        .joins("join m_users on m_channels.user_id=m_users.user_id")
-                       .where("m_channels.channel_name=? and m_channels.workspace_id=? and m_channels.chadmin = 1", session[:clickchannel_name], session[:workspace_id])
+                       .where("m_channels.channel_name=? and m_channels.workspace_id=? and m_channels.chadmin = true", session[:clickchannel_name], session[:workspace_id])
     @chnotadmin = MChannel.select("*")
                           .joins("join m_users on m_channels.user_id=m_users.user_id")
-                          .where("m_channels.channel_name=? and m_channels.workspace_id=? and m_channels.chadmin != 1", session[:clickchannel_name], session[:workspace_id])
+                          .where("m_channels.channel_name=? and m_channels.workspace_id=? and m_channels.chadmin != true", session[:clickchannel_name], session[:workspace_id])
 
     @chnotadmin = @chnotadmin.paginate(page: params[:page], per_page: 10)
   end
@@ -139,9 +139,9 @@ class ChannelController < ApplicationController
       @tchmsg.chmsg_id = @chmsg.chmsg_id
       @tchmsg.chuser_id = chuser.user_id
       if chuser.user_id == session[:user_id]
-        @tchmsg.is_read = 0
+        @tchmsg.is_read = false
       else
-        @tchmsg.is_read = 1
+        @tchmsg.is_read = true
       end
       @tchmsg.save
     }
@@ -167,7 +167,7 @@ class ChannelController < ApplicationController
     main
     #@chmesg=TChannelMessage.select("*").joins("join m_users on m_users.user_id=t_channel_messages.chsender_id").where("channel_id=?",session[:clickchannel_id]).order("t_channel_messages.created_at ASC")
     @curworchannel = MChannel.joins("join m_workspaces on m_workspaces.workspace_id = m_channels.workspace_id and m_channels.user_id = m_workspaces.user_id ")
-      .where("m_workspaces.workspace_id=? and m_channels.user_id=? and m_channels.chadmin= 1", session[:workspace_id], session[:user_id])
+      .where("m_workspaces.workspace_id=? and m_channels.user_id=? and m_channels.chadmin= true", session[:workspace_id], session[:user_id])
     @curworchannel = @curworchannel.paginate(page: params[:page], per_page: 13)
   end
 
@@ -181,11 +181,11 @@ class ChannelController < ApplicationController
       @channel.user_id = session[:user_id]
       @channel.workspace_id = session[:workspace_id]
       @channel.channel_name = params[:session][:channelname]
-      @channel.chadmin = 1
+      @channel.chadmin = true
       if params[:channeltype] == "private"
-        @channel.status = 0
+        @channel.status = false
       else
-        @channel.status = 1
+        @channel.status = true
       end
       @w = MChannel.select("*").where("workspace_id=?", session[:workspace_id])
       @ary = Array.new
