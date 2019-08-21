@@ -4,7 +4,7 @@ class ChmsgthreadController < ApplicationController
   def chthreadinsert
     @chthread = HChmessageReply.new
     @chthread.chreplyer_id = session[:user_id]
-    @chthread.chmsgid = session[:chthread_id]
+    @chthread.chmsg_id = session[:chthread_id]
     @chthread.chthreadmsg = params[:chmsgthread][:chmessage]
     @chthread.save
     redirect_back(fallback_location: chthreadinsert_path)
