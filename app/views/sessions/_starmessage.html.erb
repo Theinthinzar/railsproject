@@ -1,0 +1,12 @@
+<div id="star">
+    <% @dstar.each do |dstar| %>
+      <div class="user">
+          &nbsp; <i class="fa fa-fw fa-picture-o"></i>
+          &nbsp;<%= dstar.user_name%>&nbsp;&nbsp;
+          <date style="font-size:18px; padding-left:20px;color:gray;">
+            <%= l dstar.created_at, format: :euro  %>
+          </date>
+      </div>
+      <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= dstar.dir_message %></div>       
+    <%end%>
+  </div>

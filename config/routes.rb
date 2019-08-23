@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "refresh/new"
   #yehtetaung start 24/6/2019
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
@@ -106,6 +107,7 @@ Rails.application.routes.draw do
   get "/invite", to: "joinmembers#new"
   post "/invite", to: "joinmembers#create"
   #shinehtetnaung start 8/7/2019
+  get "/refresh", to: "refresh#new"
 
   resources :invitations, only: [:create]
   resources :joinmembers

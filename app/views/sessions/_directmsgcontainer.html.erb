@@ -1,0 +1,25 @@
+
+<div id="direct">
+ <% @message.each do |message| %>
+    <div class="tool">
+      <div class="dropdown-container2"> 
+        <div class="user"><i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= message.user_name %><date style="font-size:18px; padding-left:20px;color:gray;"> <%=  l message.created_at, format: :euro  %><br></date>
+        </div>
+        <div class="message" style="font-size:16px" > 
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <%= message.dir_message %>
+          <%= link_to "",messagedelete_path(messagedelete:message.dirmsg_id),:method => :delete , class: "fa fa-trash", style: "color:pink"%>
+          <% if @array.include?(message.dirmsg_id)%>
+          <%= link_to"",dirmsgunstar_path(:clickuserid => session[:clickuser_id],:unstarid => message.dirmsg_id),:method => :delete,class:"fa fa-star",style:"color:pink"%>
+          <%else%>   
+          <%= link_to"",dirmsgstar_path(:clickdstarid => message.dirmsg_id),class:"fa fa-star-o",style:"color:pink"%>
+          <%end%>
+          <%if message.count != 0 %>
+               <%=message.count%><%= link_to "replies",replymsg_path(clickid:message.dirmsg_id),class:"",style:"color:pink"%>
+          <%end%>
+          <%= link_to "",dirmsgthread_path(dirthread_id:message.dirmsg_id) , class: "fa fa-comment-o", style: "color:pink"%><br>
+          </div>
+      </div>
+    </div>
+ <%end%>
+ </div>

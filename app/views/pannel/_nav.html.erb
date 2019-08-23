@@ -21,9 +21,11 @@
     <%= link_to "Threads", thread_path %>
    </div>
    <div class="col-md-10" ><i class="fa fa-envelope-o" style="float:left;color:white;margin-top:5px;font-size:17px"></i> <%= link_to "Unread",unread_path %></div>
+     <div id="totalcount">
      <%if @totalcount != 0%>
        <div class="col-md-2" style="color:white"><%=@totalcount%> </div> 
      <%end%>
+     </div>
    <div class="text">
      <div class="col-md-10">Channels</div>
      <div class="col-md-2"><%= link_to "",channel_path, class:"fa fa-plus", style:"color:pink" %></a></div>
