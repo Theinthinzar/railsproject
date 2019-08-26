@@ -2,12 +2,17 @@ class ChmsgthreadController < ApplicationController
 
   #To insert thread message into h_chmessage_replies table
   def chthreadinsert
-    @chthread = HChmessageReply.new
-    @chthread.chreplyer_id = session[:user_id]
-    @chthread.chmsg_id = session[:chthread_id]
-    @chthread.chthreadmsg = params[:chmsgthread][:chmessage]
-    @chthread.save
-    redirect_back(fallback_location: chthreadinsert_path)
+    @channelmsg = TChannelMessage.find_by(chmsg_id: session[:chthread_id])
+    if @channelmsg.nil?
+      redirect_to home_path
+    else
+      @chthread = HChmessageReply.new
+      @chthread.chreplyer_id = session[:user_id]
+      @chthread.chmsg_id = session[:chthread_id]
+      @chthread.chthreadmsg = params[:chmsgthread][:chmessage]
+      @chthread.save
+      redirect_back(fallback_location: chthreadinsert_path)
+    end
   end
 
   #To show thread messages and origin message

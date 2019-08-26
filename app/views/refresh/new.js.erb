@@ -1,0 +1,23 @@
+
+$("#totalcount").html("<%= j(render 'pannel/nav', data: @totalcount) %>");
+
+$("#direct").html("<%= j(render 'sessions/directmsgcontainer', data: @message) %>");
+
+$("#channel").html("<%= j(render 'sessions/channelmsgcontainer', data: @chmesg ) %>");
+
+$("#star").html("<%= j(render 'sessions/starmessage', data: @dstar ) %>");
+
+$("#star").html("<%= j(render 'sessions/starmessage', data: @array ) %>");
+
+$("#dirthread").html("<%= j(render 'sessions/dirmsgthread', data: @dirmsg_original  ) %>");
+
+$("#chthread").html("<%= j(render 'sessions/chmsgthread', data: @chmsg_original   ) %>");
+
+
+
+
+
+
+
+
+

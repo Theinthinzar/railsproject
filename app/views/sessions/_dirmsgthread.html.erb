@@ -1,0 +1,12 @@
+<div id= "dirthread">
+     <% @dirmsg_original.each do |dirmsg| %>
+       <div class="user"><i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= dirmsg.user_name%>
+         &nbsp;&nbsp;<date style="font-size:18px; padding-left:20px;color:gray;">
+         <%=  l dirmsg.created_at, format: :euro  %>
+         </date>
+       </div>
+       <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= dirmsg.dir_message %>
+       </div>          
+     <%end%>
+    </div>
+    <div>

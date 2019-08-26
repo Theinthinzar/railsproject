@@ -2,6 +2,10 @@ class DirmsgthreadController < ApplicationController
 
   #To insert thread message into t_dirmessage_replies table
   def dirthreadinsert
+    @directmsg = TDirmessage.find_by(dirmsg_id: session[:dirthread_id])
+    if @directmsg.nil?
+      redirect_to home_path
+    else
     @dirthread = HDirmessageReply.new
     @dirthread.reply_user_id = session[:user_id]
     @dirthread.dirmsg_id = session[:dirthread_id]
@@ -9,6 +13,7 @@ class DirmsgthreadController < ApplicationController
     @dirthread.is_read = false
     @dirthread.save
     redirect_back(fallback_location: dirthreadinsert_path)
+    end
   end
 
   #To show thread messages and origin message

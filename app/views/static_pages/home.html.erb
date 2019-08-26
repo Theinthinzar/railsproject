@@ -1,16 +1,26 @@
-<%= render 'pannel/nav' %>
+<%= render 'pannel/nav'%>
 <div class="main">
   <div class="header",style="margin-top:0px">
     <div class="col-md-4 col-md-offset-4" style="font-size:30px;color:pink;padding-top:23px">
       Home Page
-     <%= session[:wrokspace_name] %>
+     <%= session[:workspace_name] %>
     </div>
     <div class="col-md-2", style="float:right;padding-top:25px">
         <%= link_to "@",mention_path,class: "", style:"color:pink" %>
         <%= link_to "",starmessage_path,class: "fa fa-star-o" , style:"color:pink" %>      
     </div>    
   </div> 
+  <div class= "main" style="position:absolute,overflow:auto;">
+   <h1>Slack Messaging App</h1>
+   <div style="margin-top:12px;margin-left:170px">
+    
+    <a href="https://www.animatedimages.org/cat-welcome-707.htm">
+      <img src="https://www.animatedimages.org/data/media/707/animated-welcome-image-0004.gif" border="0" alt="animated-welcome-image-0004" />
+    </a>
+    </div>
+  </div>
   <script>
+  
   /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
   var dropdown = document.getElementsByClassName("dropdown-btn");
   var i;  
@@ -27,4 +37,3 @@
   }
   </script>
 </div>
-<script language="javascript" type="text/javascript">setTimeout("location.reload();",20000);</script>

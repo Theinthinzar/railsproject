@@ -11,19 +11,7 @@
         <%= link_to "",channelchat_path(:clickchannelid=>session[:clickchannel_id]), class:"fa fa-times-circle", style:"color:pink"%>
     </div>
   </div>
-    <div>
-      <% @chmsg_original.each do |chmsg| %>
-        <div class="user">
-          <i class="fa fa-fw fa-picture-o"></i>
-          &nbsp;<%= chmsg.user_name%>&nbsp;&nbsp;
-          <date style="font-size:18px; padding-left:20px;color:gray;">
-            <%=  l chmsg.created_at, format: :euro  %>
-          </date>
-        </div>
-        <div class="message" style="font-size:16px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= chmsg.chmessage %>
-        </div>
-     <%end%>
-    </div>
+    <%= render 'sessions/chmsgthread' %>
     <div>
       <% @chthread_msg.each do |chmsg| %>
         <div class="user">

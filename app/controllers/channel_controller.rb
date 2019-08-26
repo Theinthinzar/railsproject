@@ -44,7 +44,7 @@ class ChannelController < ApplicationController
   #To remove the users that exist in current channel
   def channelremove
     MChannel.find_by("user_id=? and channel_id=?", params[:removeuser], session[:clickchannel_id]).delete
-    redirect_to home_path
+    redirect_to memberedit_path
   end
 
   def channelallremove
@@ -77,8 +77,8 @@ class ChannelController < ApplicationController
                              .where("channel_id=?", session[:clickchannel_id]).order("t_channel_messages.created_at ASC")
     @chmesg.each { |thread|
       @thredcount = HChmessageReply.select("*")
-                                   .joins("join t_channel_messages on t_channel_messages.chmsg_id=h_chmessage_replies.chmsg_id")
-                                   .where("h_chmessage_replies.chmsg_id=?", thread.chmsg_id)
+        .joins("join t_channel_messages on t_channel_messages.chmsg_id=h_chmessage_replies.chmsg_id")
+        .where("h_chmessage_replies.chmsg_id=?", thread.chmsg_id)
       thread.count = (@thredcount.size).to_s
     }
     @chstar = TChmsgstar.select("t_chmsgstars.chmsgstarid")
@@ -116,12 +116,16 @@ class ChannelController < ApplicationController
     mention_name = params[:channel][:memtion_name]
     mention_name[0] = ""
     mention_u = MUser.find_by(user_name: mention_name)
-
+    @chuser = MChannel.find_by(user_id: session[:user_id])
+    if @chuser.nil?
+      redirect_to home_path
+    else
     @t_chmsg = TChannelMessage.new
 
     @t_chmsg.chsender_id = session[:user_id]
     @t_chmsg.channel_id = session[:clickchannel_id]
     @t_chmsg.chmessage = params[:channel][:chmessage]
+    
     if mention_u
       @t_mention = TMention.new
       @t_mention.mentioned_id = mention_u.user_id
@@ -132,6 +136,7 @@ class ChannelController < ApplicationController
       @t_mention.save
     end
     @t_chmsg.save
+    
     main
     @chmsg = TChannelMessage.find_by("chsender_id=? and channel_id=? and chmessage=?", session[:user_id], @t_chmsg.channel_id, @t_chmsg.chmessage)
     @clickchannel = MChannel.find_by("channel_id=?", session[:clickchannel_id])
@@ -149,6 +154,7 @@ class ChannelController < ApplicationController
       @tchmsg.save
     }
     redirect_back(fallback_location: chmessage_path)
+  end
   end
 
   #To delete channel messages

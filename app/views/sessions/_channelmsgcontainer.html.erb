@@ -1,0 +1,26 @@
+<div id="channel">
+    <% @chmesg.each do |chmsg|%>
+          <div class="dropdown-container2">
+            <div class="user"><i class="fa fa-fw fa-picture-o"></i>&nbsp;<%= chmsg.user_name %>
+             <date style="font-size:18px; padding-left:20px;color:gray;"> <%=  l chmsg.created_at, format: :euro  %><br></date>
+            </div>
+            <div class="col-md-12 message" style="font-size:16px"> 
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <%= chmsg.chmessage %>
+              <%= link_to "",chmessagedelete_path(messagedelete:chmsg.chmsg_id,mentionmsg:chmsg.chmessage),:method => :delete , class: "fa fa-trash", style: "color:pink"%>
+              <% if @charray.include?(chmsg.chmsg_id)%>
+                <%= link_to"",chmsgunstar_path(:clickchid => session[:clickchannel_id],:unchstarid => chmsg.chmsg_id),:method => :delete,class:"fa fa-star",style:"color:pink"%>
+              <%else%>
+               <%= link_to "",chmsgstar_path(:clickchstarid => chmsg.chmsg_id),class:"fa fa-star-o",style:"color:pink"%>
+              <%end%>
+              <%if chmsg.count != 0 %>
+                <%=chmsg.count%><%= link_to "replies",chreplymsg_path(chclickid:chmsg.chmsg_id),class:"",style:"color:pink"%>
+              <%end%>
+              <%= link_to "",chmsgthread_path(chthread_id:chmsg.chmsg_id) , class: "fa fa-comment-o", style: "color:pink"%>
+              <br>
+            </div>
+          </div>
+    <%end%> 
+  </div>
+
+  
