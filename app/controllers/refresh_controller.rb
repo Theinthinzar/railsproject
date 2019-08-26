@@ -70,6 +70,7 @@ class RefreshController < ApplicationController
     @muser = MUser.select("m_users.user_id, m_users.user_name")
                   .joins("join m_channels on m_users.user_id=m_channels.user_id ")
                   .where("m_channels.channel_id=? and m_users.user_id !=?", session[:clickchannel_id], session[:user_id])
+<<<<<<< HEAD
     #dirthread message
     @dirmsg_original = TDirmessage.select("m_users.user_name,t_dirmessages.count,t_dirmessages.dirmsg_id,t_dirmessages.dir_message,t_dirmessages.created_at")
                                   .joins("join m_users on m_users.user_id=t_dirmessages.sender_user_id")
@@ -95,6 +96,10 @@ class RefreshController < ApplicationController
                                    .where("h_chmessage_replies.chmsg_id=?", thread.chmsg_id)
       thread.count = (@thredcount.size).to_s
     }
+=======
+    #chreply message
+
+>>>>>>> ae6d9934d9f0c5205c5093f474a9778c79702a79
     respond_to do |format|
       format.js
     end
