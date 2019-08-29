@@ -113,48 +113,47 @@ class ChannelController < ApplicationController
 
   #for messages send button
   def message
-    mention_name = params[:channel][:memtion_name]
-    mention_name[0] = ""
-    mention_u = MUser.find_by(user_name: mention_name)
     @chuser = MChannel.find_by(user_id: session[:user_id])
     if @chuser.nil?
       redirect_to home_path
     else
-    @t_chmsg = TChannelMessage.new
+      mention_name = params[:channel][:memtion_name]
+      mention_name[0] = ""
+      mention_u = MUser.find_by(user_name: mention_name)
+      @t_chmsg = TChannelMessage.new
+      @t_chmsg.chsender_id = session[:user_id]
+      @t_chmsg.channel_id = session[:clickchannel_id]
+      @t_chmsg.chmessage = params[:channel][:chmessage]
 
-    @t_chmsg.chsender_id = session[:user_id]
-    @t_chmsg.channel_id = session[:clickchannel_id]
-    @t_chmsg.chmessage = params[:channel][:chmessage]
-    
-    if mention_u
-      @t_mention = TMention.new
-      @t_mention.mentioned_id = mention_u.user_id
-      @t_mention.login_user_id = session[:user_id]
-      @t_mention.workspace_id = session[:workspace_id]
-      @t_mention.mention_message = params[:channel][:chmessage]
-      @t_mention.chmsgmen_id = session[:clickchannel_id]
-      @t_mention.save
-    end
-    @t_chmsg.save
-    
-    main
-    @chmsg = TChannelMessage.find_by("chsender_id=? and channel_id=? and chmessage=?", session[:user_id], @t_chmsg.channel_id, @t_chmsg.chmessage)
-    @clickchannel = MChannel.find_by("channel_id=?", session[:clickchannel_id])
-    @m_clickuser = MUser.joins("join m_channels on m_channels.user_id=m_users.user_id")
-                        .where("m_channels.channel_name=? and m_channels.workspace_id=?", session[:clickchannel_name], session[:workspace_id])
-    @m_clickuser.each { |chuser|
-      @tchmsg = TChunreadMessage.new
-      @tchmsg.chmsg_id = @chmsg.chmsg_id
-      @tchmsg.chuser_id = chuser.user_id
-      if chuser.user_id == session[:user_id]
-        @tchmsg.is_read = false
-      else
-        @tchmsg.is_read = true
+      if mention_u
+        @t_mention = TMention.new
+        @t_mention.mentioned_id = mention_u.user_id
+        @t_mention.login_user_id = session[:user_id]
+        @t_mention.workspace_id = session[:workspace_id]
+        @t_mention.mention_message = params[:channel][:chmessage]
+        @t_mention.chmsgmen_id = session[:clickchannel_id]
+        @t_mention.save
       end
-      @tchmsg.save
-    }
-    redirect_back(fallback_location: chmessage_path)
-  end
+      @t_chmsg.save
+
+      main
+      @chmsg = TChannelMessage.find_by("chsender_id=? and channel_id=? and chmessage=?", session[:user_id], @t_chmsg.channel_id, @t_chmsg.chmessage)
+      @clickchannel = MChannel.find_by("channel_id=?", session[:clickchannel_id])
+      @m_clickuser = MUser.joins("join m_channels on m_channels.user_id=m_users.user_id")
+                          .where("m_channels.channel_name=? and m_channels.workspace_id=?", session[:clickchannel_name], session[:workspace_id])
+      @m_clickuser.each { |chuser|
+        @tchmsg = TChunreadMessage.new
+        @tchmsg.chmsg_id = @chmsg.chmsg_id
+        @tchmsg.chuser_id = chuser.user_id
+        if chuser.user_id == session[:user_id]
+          @tchmsg.is_read = false
+        else
+          @tchmsg.is_read = true
+        end
+        @tchmsg.save
+      }
+      redirect_back(fallback_location: chmessage_path)
+    end
   end
 
   #To delete channel messages
