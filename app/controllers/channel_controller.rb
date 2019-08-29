@@ -113,17 +113,13 @@ class ChannelController < ApplicationController
 
   #for messages send button
   def message
-    mention_name = params[:channel][:memtion_name]
-    mention_name[0] = ""
-    mention_u = MUser.find_by(user_name: mention_name)
-    @chuser = MChannel.find_by(channel_id: session[:clickchannel_id])
-    @ary = Array.new
-    @chuser.each { |ch|
-      @ary.push(ch.user_id)
-    }
-    if !@ary.include?(session[:user_id])
+    @chuser = MChannel.find_by(user_id: session[:user_id])
+    if @chuser.nil?
       redirect_to home_path
     else
+      mention_name = params[:channel][:memtion_name]
+      mention_name[0] = ""
+      mention_u = MUser.find_by(user_name: mention_name)
       @t_chmsg = TChannelMessage.new
 
       @t_chmsg.chsender_id = session[:user_id]
