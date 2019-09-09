@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
       redirect_to workspacehome_path
     else
       flash[:danger] = "Invalid email/password combination" 
-      render "new"
+      redirect_to login_path
     end
   end
 
