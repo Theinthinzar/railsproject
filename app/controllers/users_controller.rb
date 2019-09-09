@@ -17,10 +17,9 @@ class UsersController < ApplicationController
     @m_user = MUser.new(user_params)
     if @m_user.save
       log_in @m_user
-      flash[:success] = "Welcome to the Sample App!"
       redirect_to workspacecreate_path
     else
-      render "new"
+      redirect_to signup_path
     end
   end
 
