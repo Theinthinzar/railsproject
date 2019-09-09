@@ -10,10 +10,10 @@
  </div>    
     <br>
     <div class="col-md-4 col-md-offset-4" ><% @curchuser.each do|user|%>
-       <% if user.admin != 1 %>
+     
          <i class="fa fa-user"></i><%=user.user_name%> &nbsp;
          <%= link_to "Remove",userremove_path(userremove:user.user_id),:method => :delete, class:"", style:"color:red" %>
-       <%end%>
+      
         <br>
        <%end%>
       

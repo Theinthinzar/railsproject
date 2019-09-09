@@ -9,7 +9,7 @@ class ChannelController < ApplicationController
     main
     @curchuser = MUser.select("*")
       .joins("join m_workspaces on m_workspaces.user_id = m_users.user_id")
-      .where("m_workspaces.workspace_id= ?", session[:workspace_id])
+      .where("m_workspaces.workspace_id= ? and m_workspaces.admin !=1", session[:workspace_id])
   end
 
   #click add button for insert users into m_channels table
