@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       log_in @m_user
       redirect_to workspacecreate_path
     else
-      redirect_to signup_path
+      render "new"
     end
   end
 
