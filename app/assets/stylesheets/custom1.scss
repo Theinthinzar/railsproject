@@ -96,7 +96,7 @@ body {
   }
   /* Main content */
   .main {
-    margin-left: 10%; /* Same as the width of the sidenav */
+    margin-left: 8%; /* Same as the width of the sidenav */
     font-size: 20px; /* Increased text to enable scrolling */
     padding: 0px 0px;
     width: 100%;
@@ -175,10 +175,10 @@ color:gray;
    
     background-color: gray;
     overflow: hidden;
-    padding-left: 17%;
+    padding-left: 20px;
     text-align: left;
     text-decoration: none;
-    width: 83%;
+    width: 100%;
     height: 80px;
     
   }
