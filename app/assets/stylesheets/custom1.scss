@@ -171,13 +171,15 @@ color:gray;
   }
   /* header style */
   .header{
+    position: fixed;
+    left: 0;
     padding-left: 0px;
     background-color: gray;
     overflow: hidden;
     
     text-align: left;
     text-decoration: none;
-    width: 115%;
+    width: 80%;
     height: 80px;
 
   }
